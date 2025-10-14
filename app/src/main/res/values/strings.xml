@@ -1,0 +1,163 @@
+<resources>
+    <string name="app_name">Kniga</string>
+    
+    <!-- Общие -->
+    <string name="ok">ОК</string>
+    <string name="cancel">Отмена</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="save">Сохранить</string>
+    <string name="search">Поиск</string>
+    <string name="settings">Настройки</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="loading">Загрузка…</string>
+    <string name="error">Ошибка</string>
+    <string name="success">Успешно</string>
+    
+    <!-- Авторизация -->
+    <string name="login">Войти</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="username">Имя пользователя</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="no_account">Нет аккаунта?</string>
+    <string name="have_account">Уже есть аккаунт?</string>
+    <string name="logout">Выйти</string>
+    
+    <!-- Библиотека -->
+    <string name="library">Моя библиотека</string>
+    <string name="all_books">Все книги</string>
+    <string name="reading_now">Читаю сейчас</string>
+    <string name="completed">Прочитано</string>
+    <string name="want_to_read">Хочу прочитать</string>
+    <string name="favorites">Избранное</string>
+    <string name="add_book">Добавить книгу</string>
+    <string name="import_file">Импортировать файл</string>
+    <string name="download_from_cloud">Скачать из облака</string>
+    <string name="no_books">Нет книг</string>
+    <string name="no_books_message">Добавьте первую книгу, нажав на кнопку +</string>
+    
+    <!-- Книга -->
+    <string name="book_info">Информация о книге</string>
+    <string name="title">Название</string>
+    <string name="author">Автор</string>
+    <string name="progress">Прогресс</string>
+    <string name="pages">Страниц</string>
+    <string name="format">Формат</string>
+    <string name="file_size">Размер файла</string>
+    <string name="added_date">Добавлено</string>
+    <string name="last_read">Последнее чтение</string>
+    <string name="delete_book">Удалить книгу</string>
+    <string name="delete_book_confirm">Вы уверены, что хотите удалить эту книгу?</string>
+    
+    <!-- Читалка -->
+    <string name="reader">Читалка</string>
+    <string name="table_of_contents">Оглавление</string>
+    <string name="bookmarks">Закладки</string>
+    <string name="add_bookmark">Добавить закладку</string>
+    <string name="bookmark_added">Закладка добавлена</string>
+    <string name="previous_page">Предыдущая страница</string>
+    <string name="next_page">Следующая страница</string>
+    <string name="page_of">Страница %1$d из %2$d</string>
+    
+    <!-- Настройки читалки -->
+    <string name="reader_settings">Настройки читалки</string>
+    <string name="theme">Тема</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Темная</string>
+    <string name="theme_sepia">Сепия</string>
+    <string name="font">Шрифт</string>
+    <string name="font_size">Размер шрифта</string>
+    <string name="line_height">Межстрочный интервал</string>
+    <string name="margins">Поля</string>
+    <string name="brightness">Яркость</string>
+    <string name="keep_screen_on">Держать экран включенным</string>
+    <string name="use_volume_keys">Кнопки громкости для перелистывания</string>
+    <string name="reading_mode">Режим чтения</string>
+    <string name="pagination">Постраничный</string>
+    <string name="scroll">Прокрутка</string>
+    
+    <!-- Закладки -->
+    <string name="no_bookmarks">Нет закладок</string>
+    <string name="no_bookmarks_message">Добавляйте закладки во время чтения</string>
+    <string name="bookmark_note">Заметка</string>
+    <string name="add_note">Добавить заметку</string>
+    <string name="edit_note">Редактировать заметку</string>
+    <string name="delete_bookmark">Удалить закладку</string>
+    
+    <!-- Выделения -->
+    <string name="highlights">Выделения</string>
+    <string name="highlight_color">Цвет выделения</string>
+    <string name="color_yellow">Желтый</string>
+    <string name="color_green">Зеленый</string>
+    <string name="color_blue">Синий</string>
+    <string name="color_pink">Розовый</string>
+    <string name="color_orange">Оранжевый</string>
+    <string name="copy">Копировать</string>
+    <string name="share">Поделиться</string>
+    <string name="search_web">Найти в интернете</string>
+    
+    <!-- Статистика -->
+    <string name="statistics">Статистика</string>
+    <string name="reading_time">Время чтения</string>
+    <string name="pages_read">Прочитано страниц</string>
+    <string name="books_completed">Завершено книг</string>
+    <string name="reading_streak">Серия чтения</string>
+    <string name="days">дней</string>
+    <string name="hours">часов</string>
+    <string name="minutes">минут</string>
+    <string name="today">Сегодня</string>
+    <string name="this_week">Эта неделя</string>
+    <string name="this_month">Этот месяц</string>
+    <string name="this_year">Этот год</string>
+    <string name="all_time">Все время</string>
+    
+    <!-- Синхронизация -->
+    <string name="sync">Синхронизация</string>
+    <string name="syncing">Синхронизация…</string>
+    <string name="sync_now">Синхронизировать сейчас</string>
+    <string name="last_sync">Последняя синхронизация</string>
+    <string name="auto_sync">Автоматическая синхронизация</string>
+    <string name="sync_only_wifi">Только по WiFi</string>
+    <string name="sync_files">Синхронизировать файлы книг</string>
+    <string name="sync_success">Синхронизация завершена</string>
+    <string name="sync_error">Ошибка синхронизации</string>
+    
+    <!-- Настройки -->
+    <string name="account">Аккаунт</string>
+    <string name="reading_settings">Настройки чтения</string>
+    <string name="sync_settings">Синхронизация</string>
+    <string name="storage">Хранилище</string>
+    <string name="notifications">Уведомления</string>
+    <string name="about">О приложении</string>
+    <string name="version">Версия</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="terms_of_service">Условия использования</string>
+    <string name="contact_support">Связаться с поддержкой</string>
+    
+    <!-- Хранилище -->
+    <string name="storage_used">Использовано</string>
+    <string name="storage_available">Доступно</string>
+    <string name="clear_cache">Очистить кэш</string>
+    <string name="manage_downloads">Управление загрузками</string>
+    
+    <!-- Ошибки -->
+    <string name="error_network">Ошибка сети. Проверьте подключение к интернету</string>
+    <string name="error_file_not_found">Файл не найден</string>
+    <string name="error_unsupported_format">Неподдерживаемый формат файла</string>
+    <string name="error_file_too_large">Файл слишком большой</string>
+    <string name="error_parsing">Ошибка чтения файла</string>
+    <string name="error_permission">Нет необходимых разрешений</string>
+    <string name="error_invalid_email">Неверный формат email</string>
+    <string name="error_password_short">Пароль должен содержать минимум 8 символов</string>
+    <string name="error_passwords_not_match">Пароли не совпадают</string>
+    
+    <!-- Уведомления -->
+    <string name="notification_sync_title">Синхронизация</string>
+    <string name="notification_sync_message">Синхронизация данных…</string>
+    <string name="notification_reading_title">Чтение</string>
+    <string name="notification_reading_message">%1$s - %2$d%%</string>
+</resources>
