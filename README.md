@@ -1,9 +1,11 @@
 # 📚 Kniga - Читалка для Android
 
 Современное мобильное приложение для чтения электронных книг на Android с облачной библиотекой и синхронизацией.
-<img width="576" height="576" alt="image" src="https://github.com/user-attachments/assets/a856b4db-ee19-478a-b9dc-fcfc9488e8b5" />
-<img width="576" height="567" alt="image" src="https://github.com/user-attachments/assets/850e7b03-0a11-436e-b90c-85f5128cb199" />
-<img width="576" height="576" alt="image" src="https://github.com/user-attachments/assets/94d02373-a814-4ab8-9595-5b97abd581c0" />
+
+
+<img width="576" height="800" alt="image" src="https://github.com/user-attachments/assets/a856b4db-ee19-478a-b9dc-fcfc9488e8b5" />
+<img width="576" height="800" alt="image" src="https://github.com/user-attachments/assets/850e7b03-0a11-436e-b90c-85f5128cb199" />
+<img width="576" height="800" alt="image" src="https://github.com/user-attachments/assets/94d02373-a814-4ab8-9595-5b97abd581c0" />
 
 ## ✨ Возможности
 
