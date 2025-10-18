@@ -13,6 +13,12 @@ interface UserDao {
     @Query("SELECT * FROM user LIMIT 1")
     suspend fun getCurrentUserSync(): User?
     
+    @Query("SELECT * FROM user")
+    fun getAllUsers(): Flow<List<User>>
+    
+    @Query("SELECT * FROM user")
+    suspend fun getAllUsersSync(): List<User>
+    
     @Query("SELECT * FROM user WHERE id = :userId")
     suspend fun getUserById(userId: String): User?
     

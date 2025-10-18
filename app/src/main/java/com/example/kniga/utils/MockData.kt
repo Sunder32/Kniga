@@ -129,4 +129,32 @@ object MockData {
             bookRepository.insertBook(book)
         }
     }
+    
+    /**
+     * Создать тестового пользователя
+     */
+    suspend fun createMockUser(userDao: com.example.kniga.data.local.dao.UserDao) {
+        val users = userDao.getAllUsersSync()
+        if (users.isEmpty()) {
+            val mockUser = com.example.kniga.data.local.entity.User(
+                id = "user_${System.currentTimeMillis()}",
+                email = "test@example.com",
+                username = "Пользователь Книга",
+                accessToken = "mock_access_token",
+                refreshToken = "mock_refresh_token",
+                avatarUrl = null,
+                isPremium = false,
+                premiumUntil = null,
+                storageUsed = 0,
+                storageLimit = 5 * 1024 * 1024 * 1024L, // 5 GB
+                syncEnabled = true,
+                syncOnlyWifi = true,
+                syncFiles = false,
+                createdAt = System.currentTimeMillis(),
+                lastSyncAt = null,
+                updatedAt = System.currentTimeMillis()
+            )
+            userDao.insertUser(mockUser)
+        }
+    }
 }
