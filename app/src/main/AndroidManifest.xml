@@ -69,6 +69,12 @@
             android:exported="false"
             android:theme="@style/Theme.Kniga" />
         
+        <!-- Облачная библиотека -->
+        <activity
+            android:name=".presentation.activity.CloudLibraryActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Kniga" />
+        
     </application>
 
 </manifest>

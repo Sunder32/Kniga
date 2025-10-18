@@ -15,9 +15,10 @@ import com.example.kniga.data.local.entity.*
         Highlight::class,
         User::class,
         ReadingSession::class,
-        SyncQueueItem::class
+        SyncQueueItem::class,
+        CloudBook::class
     ],
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -29,6 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun readingSessionDao(): ReadingSessionDao
     abstract fun syncQueueDao(): SyncQueueDao
+    abstract fun cloudBookDao(): CloudBookDao
     
     companion object {
         @Volatile

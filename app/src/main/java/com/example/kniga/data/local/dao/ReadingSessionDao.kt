@@ -51,4 +51,16 @@ interface ReadingSessionDao {
     
     @Query("UPDATE reading_sessions SET isSynced = :isSynced WHERE id = :sessionId")
     suspend fun updateSyncStatus(sessionId: Long, isSynced: Boolean)
+    
+    // Новые методы для общей статистики
+    @Query("SELECT COALESCE(SUM(durationSeconds), 0) FROM reading_sessions")
+    fun getTotalReadingTime(): Flow<Long>
+    
+    @Query("""
+        SELECT COUNT(DISTINCT date) 
+        FROM reading_sessions 
+        WHERE date >= date('now', '-30 days')
+        ORDER BY date DESC
+    """)
+    fun getCurrentStreak(): Flow<Int>
 }

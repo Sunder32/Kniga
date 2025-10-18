@@ -16,7 +16,6 @@ class BookImportService(
     
     suspend fun importBook(uri: Uri): Result<Book> = withContext(Dispatchers.IO) {
         try {
-            // Получаем информацию о файле
             val fileName = getFileName(uri) ?: return@withContext Result.failure(
                 Exception("Не удалось получить имя файла")
             )
@@ -28,7 +27,6 @@ class BookImportService(
                 )
             }
             
-            // Копируем файл в хранилище приложения
             val booksDir = FileUtils.getBooksDirectory(context)
             val destinationFile = File(booksDir, fileName)
             
@@ -40,10 +38,8 @@ class BookImportService(
                 Exception("Не удалось прочитать файл")
             )
             
-            // Извлекаем метаданные
             val metadata = extractMetadata(destinationFile, fileExtension)
             
-            // Создаем запись в базе данных
             val book = Book(
                 title = metadata.title,
                 author = metadata.author,
@@ -86,16 +82,71 @@ class BookImportService(
     }
     
     private fun extractMetadata(file: File, format: String): BookMetadata {
-        // TODO: Реальный парсинг метаданных из файла
-        // Для EPUB можно использовать библиотеку epublib
-        // Для PDF - pdfbox или iText
-        // Для FB2 - XML парсер
-        
+        return try {
+            when (format.lowercase()) {
+                "pdf" -> extractPdfMetadata(file)
+                "epub" -> extractEpubMetadata(file)
+                "fb2" -> extractFb2Metadata(file)
+                else -> BookMetadata(
+                    title = file.nameWithoutExtension,
+                    author = "Неизвестный автор",
+                    description = "Импортированная книга",
+                    totalPages = 0
+                )
+            }
+        } catch (e: Exception) {
+            BookMetadata(
+                title = file.nameWithoutExtension,
+                author = "Неизвестный автор",
+                description = "Ошибка извлечения метаданных: ${e.message}",
+                totalPages = 0
+            )
+        }
+    }
+    
+    private fun extractPdfMetadata(file: File): BookMetadata {
+        return try {
+            val document = com.tom_roush.pdfbox.pdmodel.PDDocument.load(file)
+            val pageCount = document.numberOfPages
+            val info = document.documentInformation
+            
+            val title = info?.title?.takeIf { it.isNotBlank() } ?: file.nameWithoutExtension
+            val author = info?.author?.takeIf { it.isNotBlank() } ?: "Неизвестный автор"
+            val subject = info?.subject?.takeIf { it.isNotBlank() } ?: "PDF документ"
+            
+            document.close()
+            
+            BookMetadata(
+                title = title,
+                author = author,
+                description = subject,
+                totalPages = pageCount
+            )
+        } catch (e: Exception) {
+            BookMetadata(
+                title = file.nameWithoutExtension,
+                author = "Неизвестный автор",
+                description = "PDF файл",
+                totalPages = 0
+            )
+        }
+    }
+    
+    private fun extractEpubMetadata(file: File): BookMetadata {
         return BookMetadata(
             title = file.nameWithoutExtension,
             author = "Неизвестный автор",
-            description = "Импортированная книга",
-            totalPages = 100
+            description = "EPUB книга",
+            totalPages = 0
+        )
+    }
+    
+    private fun extractFb2Metadata(file: File): BookMetadata {
+        return BookMetadata(
+            title = file.nameWithoutExtension,
+            author = "Неизвестный автор",
+            description = "FB2 книга",
+            totalPages = 0
         )
     }
     

@@ -35,4 +35,13 @@ class ReadingSessionRepository(private val sessionDao: ReadingSessionDao) {
     suspend fun getAverageReadingSpeed(startDate: String, endDate: String): Int = withContext(Dispatchers.IO) {
         sessionDao.getAverageReadingSpeedInRange(startDate, endDate) ?: 0
     }
+    
+    // Новые методы для статистики
+    fun getTotalReadingTime(): Flow<Long> {
+        return sessionDao.getTotalReadingTime()
+    }
+    
+    fun getCurrentStreak(): Flow<Int> {
+        return sessionDao.getCurrentStreak()
+    }
 }

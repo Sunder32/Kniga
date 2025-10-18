@@ -13,15 +13,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
+import com.example.kniga.data.local.AppDatabase
+import com.example.kniga.data.repository.BookRepository
+import com.example.kniga.data.repository.ReadingSessionRepository
 import com.example.kniga.ui.theme.KnigaTheme
+import kotlinx.coroutines.launch
 
 class StatisticsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
+        val database = AppDatabase.getDatabase(this)
+        val bookRepository = BookRepository(database.bookDao())
+        val readingSessionRepository = ReadingSessionRepository(database.readingSessionDao())
+        
         setContent {
             KnigaTheme {
                 StatisticsScreen(
+                    bookRepository = bookRepository,
+                    readingSessionRepository = readingSessionRepository,
                     onBackClick = { finish() }
                 )
             }
@@ -32,8 +43,47 @@ class StatisticsActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StatisticsScreen(
+    bookRepository: BookRepository,
+    readingSessionRepository: ReadingSessionRepository,
     onBackClick: () -> Unit
 ) {
+    var completedBooks by remember { mutableStateOf(0) }
+    var readingBooks by remember { mutableStateOf(0) }
+    var totalPages by remember { mutableStateOf(0) }
+    var totalReadingTime by remember { mutableStateOf(0L) }
+    var readingStreak by remember { mutableStateOf(0) }
+    
+    LaunchedEffect(Unit) {
+        // Получаем статистику из базы данных
+        bookRepository.getCompletedBooks().collect { books ->
+            completedBooks = books.size
+        }
+    }
+    
+    LaunchedEffect(Unit) {
+        bookRepository.getReadingBooks().collect { books ->
+            readingBooks = books.size
+        }
+    }
+    
+    LaunchedEffect(Unit) {
+        bookRepository.getAllBooks().collect { books ->
+            totalPages = books.filter { it.status == "COMPLETED" }.sumOf { it.totalPages }
+        }
+    }
+    
+    LaunchedEffect(Unit) {
+        readingSessionRepository.getTotalReadingTime().collect { time ->
+            totalReadingTime = time
+        }
+    }
+    
+    LaunchedEffect(Unit) {
+        readingSessionRepository.getCurrentStreak().collect { streak ->
+            readingStreak = streak
+        }
+    }
+    
     Scaffold(
         topBar = {
             TopAppBar(
@@ -56,7 +106,7 @@ fun StatisticsScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(16.dp)
         ) {
-            // Общая статистика
+            // Общая статистика - серия чтения
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -79,7 +129,7 @@ fun StatisticsScreen(
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "7 дней подряд",
+                        text = "$readingStreak ${if (readingStreak == 1) "день" else if (readingStreak in 2..4) "дня" else "дней"} подряд",
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
@@ -96,15 +146,23 @@ fun StatisticsScreen(
             ) {
                 StatCard(
                     title = "Прочитано",
-                    value = "12",
-                    subtitle = "книг",
+                    value = "$completedBooks",
+                    subtitle = when (completedBooks % 10) {
+                        1 -> if (completedBooks % 100 != 11) "книга" else "книг"
+                        in 2..4 -> if (completedBooks % 100 !in 12..14) "книги" else "книг"
+                        else -> "книг"
+                    },
                     emoji = "📚",
                     modifier = Modifier.weight(1f)
                 )
                 StatCard(
                     title = "В процессе",
-                    value = "3",
-                    subtitle = "книги",
+                    value = "$readingBooks",
+                    subtitle = when (readingBooks % 10) {
+                        1 -> if (readingBooks % 100 != 11) "книга" else "книг"
+                        in 2..4 -> if (readingBooks % 100 !in 12..14) "книги" else "книг"
+                        else -> "книг"
+                    },
                     emoji = "📖",
                     modifier = Modifier.weight(1f)
                 )
@@ -118,15 +176,15 @@ fun StatisticsScreen(
             ) {
                 StatCard(
                     title = "Время чтения",
-                    value = "42ч",
-                    subtitle = "в этом месяце",
+                    value = "${totalReadingTime / 3600000}ч ${(totalReadingTime % 3600000) / 60000}м",
+                    subtitle = "всего",
                     emoji = "⏱️",
                     modifier = Modifier.weight(1f)
                 )
                 StatCard(
                     title = "Страниц",
-                    value = "1847",
-                    subtitle = "всего",
+                    value = "$totalPages",
+                    subtitle = "прочитано",
                     emoji = "📄",
                     modifier = Modifier.weight(1f)
                 )

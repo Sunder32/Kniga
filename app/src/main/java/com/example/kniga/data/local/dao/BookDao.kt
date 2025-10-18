@@ -31,6 +31,9 @@ interface BookDao {
     @Query("SELECT * FROM books WHERE fileHash = :hash")
     suspend fun getBookByHash(hash: String): Book?
     
+    @Query("SELECT * FROM books WHERE cloudId = :cloudId")
+    suspend fun getBookByCloudId(cloudId: String): Book?
+    
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBook(book: Book): Long
     
